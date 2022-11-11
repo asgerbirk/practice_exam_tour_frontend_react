@@ -4,7 +4,6 @@ import {Navbar} from "./Navbar";
 import {Home} from "./pages/Home";
 import {Create} from "./pages/Create";
 import {Edit} from "./pages/Edit";
-import {Delete} from "./pages/Delete";
 
 function App() {
   return (
@@ -16,7 +15,6 @@ function App() {
               <Route exact path ="/" element={<Home/>}/>
               <Route exact path ="/create" element={<Create/>}/>
               <Route exact path ="/edit/:id" element={<Edit/>}/>
-              <Route path ="/delete" element={<Delete/>}/>
               <Route path = "*" element={<h1>PAGE NOT FOUND</h1>}/>
           </Routes>
       </Router>
