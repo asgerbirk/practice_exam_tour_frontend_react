@@ -22,3 +22,12 @@ export const deleteRider = async (id) =>{
     return await axios.delete(`http://localhost:8080/api/v1/riders/${id}`)
 }
 
+export const bestFinalTime = async () =>{
+    return await axios.get("http://localhost:8080/api/v1/riders/sortFive")
+}
+
+export const sortedList = async () =>{
+    return await axios.get("http://localhost:8080/api/v1/riders/allSorted")
+}
+
+

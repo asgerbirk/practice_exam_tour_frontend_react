@@ -5,6 +5,7 @@ import {getRiderById, updateRider} from "../Queries";
 export const Edit = () => {
     const [rider, setRider] = useState({
         name:"",
+        age:"",
         finalTime:"",
         mountainPoint:"",
         sprintPoint:"",
@@ -14,7 +15,7 @@ export const Edit = () => {
 
     const {id} = useParams();
 
-    const { name, finalTime, mountainPoint, sprintPoint } = rider;
+    const { name, age, finalTime, mountainPoint, sprintPoint } = rider;
 
     const onInputChange = (e) => {
         setRider({ ...rider, [e.target.name]: e.target.value });
@@ -56,6 +57,19 @@ export const Edit = () => {
                                 placeholder="Enter your name"
                                 name="name"
                                 value={name}
+                                onChange={(e) => onInputChange(e)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Name
+                            </label>
+                            <input
+                                type={"number"}
+                                className="form-control"
+                                placeholder="Enter your age"
+                                name="age"
+                                value={age}
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>

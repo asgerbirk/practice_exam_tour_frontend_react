@@ -1,28 +1,41 @@
 import {useState} from "react";
 import {createRider} from "../Queries";
 import {Link, useNavigate} from "react-router-dom";
+import {useMutation, useQueryClient} from "react-query";
 
 export const Create = () => {
-    const [rider, setRider] = useState({
-        name:"",
-        finalTime:"",
-        mountainPoint:"",
-        sprintPoint:"",
-    })
 
+    const [name, setName] = useState("");
+    const [age, setAge] = useState("");
+    const [finalTime, setFinalTime] = useState("");
+    const [mountainPoint, SetMountainPoint] = useState("");
+    const [sprintPoint, setSprintPoint] = useState("");
+
+    const queryClient = useQueryClient();
     let navigate = useNavigate();
 
-    const { name, finalTime, mountainPoint, sprintPoint } = rider;
 
-    const onInputChange = (e) => {
-        setRider({ ...rider, [e.target.name]: e.target.value });
-    };
+    const {mutate, isError, isLoading,reset} = useMutation(createRider,{
+        onSuccess: () => {
+            queryClient.invalidateQueries("riders");
+        }
+    });
 
-    const onSubmit = async (e) =>{
-        e.preventDefault();
-       await createRider(rider)
-        navigate("/");
+    if (isError){
+        return <p>Error</p>
     }
+
+    if (isLoading){
+        return  <p>is loading</p>
+
+    }
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        mutate({name,age,finalTime,mountainPoint,sprintPoint})
+        navigate("/")
+    }
+
 
 
 
@@ -32,7 +45,7 @@ export const Create = () => {
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Register User</h2>
 
-                    <form onSubmit={(e) => onSubmit(e)}>
+                    <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
                                 Name
@@ -43,7 +56,20 @@ export const Create = () => {
                                 placeholder="Enter your name"
                                 name="name"
                                 value={name}
-                                onChange={(e) => onInputChange(e)}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                Name
+                            </label>
+                            <input
+                                type={"number"}
+                                className="form-control"
+                                placeholder="Enter your age"
+                                name="age"
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
                             />
                         </div>
                         <div className="mb-3">
@@ -56,7 +82,7 @@ export const Create = () => {
                                 placeholder="finalTime"
                                 name="finalTime"
                                 value={finalTime}
-                                onChange={(e) => onInputChange(e)}
+                                onChange={(e) => setFinalTime(e.target.value)}
                             />
                         </div>
                         <div className="mb-3">
@@ -69,7 +95,7 @@ export const Create = () => {
                                 placeholder="mountain Points"
                                 name="mountainPoint"
                                 value={mountainPoint}
-                                onChange={(e) => onInputChange(e)}
+                                onChange={(e) => SetMountainPoint(e.target.value)}
                             />
                         </div>
                         <div className="mb-3">
@@ -82,10 +108,10 @@ export const Create = () => {
                                 placeholder="sprint points"
                                 name="sprintPoint"
                                 value={sprintPoint}
-                                onChange={(e) => onInputChange(e)}
+                                onChange={(e) => setSprintPoint(e.target.value)}
                             />
                         </div>
-                        <button type="submit" className="btn btn-outline-primary">
+                        <button onClick={reset} type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>
                         <Link className="btn btn-outline-danger mx-2" to="/">

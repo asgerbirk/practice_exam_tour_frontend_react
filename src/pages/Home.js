@@ -6,7 +6,7 @@ import {Button} from "react-bootstrap";
 
 export const Home = () => {
 
-    const {data,isLoading, isError} = useQuery("beers", fetchAllRiders);
+    const {data,isLoading, isError} = useQuery("riders", fetchAllRiders);
 
     if (isLoading){
         return <p>is loading</p>
@@ -32,6 +32,7 @@ const deleteRiderSubmit = (id) =>{
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
+                        <th>Age</th>
                         <th>final time</th>
                         <th>mountain points</th>
                         <th>Sprint points</th>
@@ -42,8 +43,10 @@ const deleteRiderSubmit = (id) =>{
                     {
                         data?.data.map((rider) => (
                             <tr>
-                                <td key={rider.id}>{rider.id}</td>
+
+                                <td key={rider.id}> {rider.id} </td>
                                 <td>{rider.name}</td>
+                                <td>{rider.age}</td>
                                 <td>{rider.finalTime}</td>
                                 <td>{rider.mountainPoint}</td>
                                 <td>{rider.sprintPoint}</td>
@@ -51,8 +54,6 @@ const deleteRiderSubmit = (id) =>{
                                     <Link
                                         className="btn btn-primary mx-2"
                                         to={`/edit/${rider.id}`}>Edit</Link>
-
-
 
                                 </td>
                                 <td>
