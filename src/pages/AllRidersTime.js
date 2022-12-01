@@ -28,8 +28,8 @@ export const AllRidersTime = () =>{
                     <tbody>
                     {
                         data?.data.map((rider) => (
-                            <tr>
-                                <td key={rider.id}>{rider.id}</td>
+                            <tr key={rider.id}>
+                                <td>{rider.id}</td>
                                 <td>{rider.name}</td>
                                 <td>{rider.finalTime}</td>
                             </tr>

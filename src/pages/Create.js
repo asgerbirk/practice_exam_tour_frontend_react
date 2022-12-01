@@ -17,7 +17,7 @@ export const Create = () => {
 
     const {mutate, isError, isLoading,reset} = useMutation(createRider,{
         onSuccess: () => {
-            queryClient.invalidateQueries("riders");
+            queryClient.invalidateQueries("riders").then(r => console.log(r));
         }
     });
 
@@ -27,7 +27,6 @@ export const Create = () => {
 
     if (isLoading){
         return  <p>is loading</p>
-
     }
 
     const handleSubmit = async (e) =>{
@@ -44,7 +43,6 @@ export const Create = () => {
             <div className="row">
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Register User</h2>
-
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">

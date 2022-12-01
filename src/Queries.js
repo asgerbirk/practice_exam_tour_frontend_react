@@ -6,7 +6,6 @@ export const fetchAllRiders = async () =>{
 
 export const getRiderById = async (id) =>{
     return await axios.get(`http://localhost:8080/api/v1/riders/${id}`)
-
 }
 
 export const createRider = async (rider) =>{

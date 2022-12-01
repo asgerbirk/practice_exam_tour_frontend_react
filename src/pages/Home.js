@@ -33,20 +33,24 @@ const deleteRiderSubmit = (id) =>{
                         <th>ID</th>
                         <th>Name</th>
                         <th>Age</th>
+                        <th>Country</th>
                         <th>final time</th>
                         <th>mountain points</th>
                         <th>Sprint points</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
 
                     </tr>
                     </thead>
                     <tbody>
                     {
                         data?.data.map((rider) => (
-                            <tr>
+                            <tr key={rider.id}>
 
-                                <td key={rider.id}> {rider.id} </td>
+                                <td> {rider.id} </td>
                                 <td>{rider.name}</td>
                                 <td>{rider.age}</td>
+                                <td>{rider.country}</td>
                                 <td>{rider.finalTime}</td>
                                 <td>{rider.mountainPoint}</td>
                                 <td>{rider.sprintPoint}</td>
