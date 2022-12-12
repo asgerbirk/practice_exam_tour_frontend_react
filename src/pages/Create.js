@@ -17,31 +17,16 @@ export const Create = () => {
         }
     })
 
-
-
-
-
-
-
-    const {name,age,country,finalTime,mountainPoint,sprintPoint,team, id, teamName} = rider;
-
-
-
-
+    const {name,age,country,finalTime,mountainPoint,sprintPoint,team} = rider;
 
     const onInputChange = (e) =>{
         setRider({...rider, [e.target.name]:e.target.value})
     }
-
-
     const handleSubmit = async (e) =>{
         e.preventDefault();
         await axios.post("http://localhost:8080/api/v1/riders", rider)
         console.log(rider)
     }
-
-
-
 
    return(
         <div className="container">
@@ -56,7 +41,6 @@ export const Create = () => {
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter your name"
                                 name="name"
                                 value={name}
                                 onChange={(e) =>onInputChange(e)}
@@ -69,7 +53,6 @@ export const Create = () => {
                             <input
                                 type={"number"}
                                 className="form-control"
-                                placeholder="Enter your age"
                                 name="age"
                                 value={age}
                                 onChange={(e) =>onInputChange(e)}
@@ -83,7 +66,6 @@ export const Create = () => {
                             <input
                                 type={"text"}
                                 className="form-control"
-                                placeholder="Enter your age"
                                 name="country"
                                 value={country}
                                 onChange={(e) =>onInputChange(e)}
@@ -97,7 +79,6 @@ export const Create = () => {
                             <input
                                 type={"number"}
                                 className="form-control"
-                                placeholder="finalTime"
                                 name="finalTime"
                                 value={finalTime}
                                 onChange={(e) =>onInputChange(e)}
@@ -110,7 +91,6 @@ export const Create = () => {
                             <input
                                 type={"number"}
                                 className="form-control"
-                                placeholder="mountain Points"
                                 name="mountainPoint"
                                 value={mountainPoint}
                                 onChange={(e) =>onInputChange(e)}
@@ -123,7 +103,6 @@ export const Create = () => {
                             <input
                                 type={"number"}
                                 className="form-control"
-                                placeholder="sprint points"
                                 name="sprintPoint"
                                 value={sprintPoint}
                                 onChange={(e) =>onInputChange(e)}
@@ -137,7 +116,6 @@ export const Create = () => {
                             <input
                                 type={"number"}
                                 className="form-control"
-                                placeholder="sprint points"
                                 name="team.id"
                                 value={team.id}
                                 onChange={(e) =>onInputChange(e)}
@@ -152,7 +130,6 @@ export const Create = () => {
                                 type={"text"}
                                 className="form-control"
                                 id="teamName"
-                                placeholder="sprint points"
                                 name="team.teamName"
                                 value={team.teamName}
                                 onChange={(e) =>onInputChange(e)}

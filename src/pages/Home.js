@@ -6,10 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 export const Home = () => {
-
-
    const[riders, setRiders] = useState([]);
-
 
    useEffect(() => {
 loadRiders();
@@ -21,15 +18,9 @@ loadRiders();
        console.log(result)
     }
 
-
-
 const deleteRiderSubmit = (id) =>{
         deleteRider(id).then(() =>  window.location.reload());
     }
-
-
-
-
 
     return (
         <div className={"container"}>
@@ -44,11 +35,10 @@ const deleteRiderSubmit = (id) =>{
                         <th>final time</th>
                         <th>mountain points</th>
                         <th>Sprint points</th>
-                        <th>Team</th>
-
+                        <th>Team id</th>
+                        <th>Team name</th>
                         <th>Delete</th>
                         <th>Edit</th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -64,14 +54,10 @@ const deleteRiderSubmit = (id) =>{
                                 <td>{rider.sprintPoint}</td>
                                 <td>{rider.team.id}</td>
                                 <td>{rider.team.teamName}</td>
-
-
-
                                 <td>
                                     <Link
                                         className="btn btn-primary mx-2"
                                         to={`/edit/${rider.id}`}>Edit</Link>
-
                                 </td>
                                 <td>
                                     <Button onClick={() => deleteRiderSubmit(rider.id)}>Delete</Button>
