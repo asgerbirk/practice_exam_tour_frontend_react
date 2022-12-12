@@ -1,20 +1,27 @@
 import Table from 'react-bootstrap/Table';
-import {deleteRider, fetchAllRiders} from "../Queries";
-import {useQuery} from 'react-query';
+import {deleteRider} from "../Queries";
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export const Home = () => {
 
-    const {data,isLoading, isError} = useQuery("riders", fetchAllRiders);
 
-    if (isLoading){
-        return <p>is loading</p>
+   const[riders, setRiders] = useState([]);
+
+
+   useEffect(() => {
+loadRiders();
+   },[])
+
+    const loadRiders = async () =>{
+       const result = await axios.get("http://localhost:8080/api/v1/riders")
+       setRiders(result.data)
+       console.log(result)
     }
 
-    if (isError){
-        return <p>Error</p>
-    }
+
 
 const deleteRiderSubmit = (id) =>{
         deleteRider(id).then(() =>  window.location.reload());
@@ -37,14 +44,15 @@ const deleteRiderSubmit = (id) =>{
                         <th>final time</th>
                         <th>mountain points</th>
                         <th>Sprint points</th>
-                        <th>Edit</th>
+                        <th>Team</th>
+
                         <th>Delete</th>
+                        <th>Edit</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    {
-                        data?.data.map((rider) => (
+                    {(riders?.map((rider) => (
                             <tr key={rider.id}>
 
                                 <td> {rider.id} </td>
@@ -54,6 +62,11 @@ const deleteRiderSubmit = (id) =>{
                                 <td>{rider.finalTime}</td>
                                 <td>{rider.mountainPoint}</td>
                                 <td>{rider.sprintPoint}</td>
+                                <td>{rider.team.id}</td>
+                                <td>{rider.team.teamName}</td>
+
+
+
                                 <td>
                                     <Link
                                         className="btn btn-primary mx-2"
@@ -65,8 +78,7 @@ const deleteRiderSubmit = (id) =>{
                                 </td>
                             </tr>
 
-                        ))
-                    }
+                        )))}
                     </tbody>
                 </Table>
 

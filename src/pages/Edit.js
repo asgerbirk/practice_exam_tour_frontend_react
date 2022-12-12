@@ -9,13 +9,14 @@ export const Edit = () => {
         finalTime:"",
         mountainPoint:"",
         sprintPoint:"",
+
     })
 
     let navigate = useNavigate();
 
     const {id} = useParams();
 
-    const { name, age, finalTime, mountainPoint, sprintPoint } = rider;
+    const { name, age, finalTime, mountainPoint, sprintPoint} = rider;
 
     const onInputChange = (e) => {
         setRider({ ...rider, [e.target.name]: e.target.value });
@@ -111,6 +112,7 @@ export const Edit = () => {
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>
+
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>

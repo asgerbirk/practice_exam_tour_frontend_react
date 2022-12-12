@@ -1,38 +1,43 @@
 import {useState} from "react";
-import {createRider} from "../Queries";
-import {Link, useNavigate} from "react-router-dom";
-import {useMutation, useQueryClient} from "react-query";
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 export const Create = () => {
 
-    const [name, setName] = useState("");
-    const [age, setAge] = useState("");
-    const [finalTime, setFinalTime] = useState("");
-    const [mountainPoint, SetMountainPoint] = useState("");
-    const [sprintPoint, setSprintPoint] = useState("");
-
-    const queryClient = useQueryClient();
-    let navigate = useNavigate();
-
-
-    const {mutate, isError, isLoading,reset} = useMutation(createRider,{
-        onSuccess: () => {
-            queryClient.invalidateQueries("riders").then(r => console.log(r));
+    const [rider, setRider] = useState({
+        name:"",
+        age:"",
+        country:"",
+        finalTime:"",
+        mountainPoint:"",
+        sprintPoint:"",
+        team:{
+            id:"",
+            teamName:""
         }
-    });
+    })
 
-    if (isError){
-        return <p>Error</p>
+
+
+
+
+
+
+    const {name,age,country,finalTime,mountainPoint,sprintPoint,team, id, teamName} = rider;
+
+
+
+
+
+    const onInputChange = (e) =>{
+        setRider({...rider, [e.target.name]:e.target.value})
     }
 
-    if (isLoading){
-        return  <p>is loading</p>
-    }
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        mutate({name,age,finalTime,mountainPoint,sprintPoint})
-        navigate("/")
+        await axios.post("http://localhost:8080/api/v1/riders", rider)
+        console.log(rider)
     }
 
 
@@ -54,12 +59,12 @@ export const Create = () => {
                                 placeholder="Enter your name"
                                 name="name"
                                 value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) =>onInputChange(e)}
                             />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
-                                Name
+                                Age
                             </label>
                             <input
                                 type={"number"}
@@ -67,7 +72,22 @@ export const Create = () => {
                                 placeholder="Enter your age"
                                 name="age"
                                 value={age}
-                                onChange={(e) => setAge(e.target.value)}
+                                onChange={(e) =>onInputChange(e)}
+
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Name" className="form-label">
+                                country
+                            </label>
+                            <input
+                                type={"text"}
+                                className="form-control"
+                                placeholder="Enter your age"
+                                name="country"
+                                value={country}
+                                onChange={(e) =>onInputChange(e)}
+
                             />
                         </div>
                         <div className="mb-3">
@@ -80,7 +100,7 @@ export const Create = () => {
                                 placeholder="finalTime"
                                 name="finalTime"
                                 value={finalTime}
-                                onChange={(e) => setFinalTime(e.target.value)}
+                                onChange={(e) =>onInputChange(e)}
                             />
                         </div>
                         <div className="mb-3">
@@ -93,7 +113,7 @@ export const Create = () => {
                                 placeholder="mountain Points"
                                 name="mountainPoint"
                                 value={mountainPoint}
-                                onChange={(e) => SetMountainPoint(e.target.value)}
+                                onChange={(e) =>onInputChange(e)}
                             />
                         </div>
                         <div className="mb-3">
@@ -106,10 +126,46 @@ export const Create = () => {
                                 placeholder="sprint points"
                                 name="sprintPoint"
                                 value={sprintPoint}
-                                onChange={(e) => setSprintPoint(e.target.value)}
+                                onChange={(e) =>onInputChange(e)}
                             />
                         </div>
-                        <button onClick={reset} type="submit" className="btn btn-outline-primary">
+
+                        <div className="mb-3">
+                            <label htmlFor="Email" className="form-label">
+                                team id
+                            </label>
+                            <input
+                                type={"number"}
+                                className="form-control"
+                                placeholder="sprint points"
+                                name="team.id"
+                                value={team.id}
+                                onChange={(e) =>onInputChange(e)}
+                            />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="Email" className="form-label">
+                                teamName
+                            </label>
+                            <input
+                                type={"text"}
+                                className="form-control"
+                                id="teamName"
+                                placeholder="sprint points"
+                                name="team.teamName"
+                                value={team.teamName}
+                                onChange={(e) =>onInputChange(e)}
+                            />
+                        </div>
+
+
+
+
+
+
+
+                        <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>
                         <Link className="btn btn-outline-danger mx-2" to="/">
